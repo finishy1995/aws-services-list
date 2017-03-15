@@ -1,0 +1,387 @@
+{
+    "regions": [
+        {
+            "id": "us-east-1",
+            "name": "US East"
+        },
+        {
+            "id": "us-east-2",
+            "name": "US East"
+        },
+        {
+            "id": "us-west-1",
+            "name": "US West"
+        },
+        {
+            "id": "us-west-2",
+            "name": "US West"
+        },
+        {
+            "id": "ca-central-1",
+            "name": "Canada"
+        },
+        {
+            "id": "eu-west-1",
+            "name": "EU"
+        },
+        {
+            "id": "eu-central-1",
+            "name": "EU"
+        },
+        {
+            "id": "eu-west-2",
+            "name": "EU"
+        },
+        {
+            "id": "ap-southeast-1",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "ap-southeast-2",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "ap-northeast-2",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "ap-northeast-1",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "ap-south-1",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "sa-east-1",
+            "name": "South America"
+        },
+        {
+            "id": "us-gov-west-1",
+            "name": "US GOV"
+        },
+        {
+            "id": "cn-north-1",
+            "name": "China North",
+            "suffix": ".cn"
+        }
+    ],
+    "services": [
+        {
+            "name": "Amazon API Gateway",
+            "end_point": "https://apigateway.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon AppStream",
+            "end_point": "https://appstream.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon AppStream 2.0",
+            "end_point": "https://appstream2.**.amazonaws.com"
+        },
+        {
+            "name": "Auto Scaling",
+            "end_point": "https://autoscaling.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Batch",
+            "end_point": "https://batch.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Athena",
+            "end_point": "https://athena.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Certificate Manager",
+            "end_point": "https://acm.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CloudFormation",
+            "end_point": "https://cloudformation.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CloudHSM",
+            "end_point": "https://cloudhsm.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon CloudSearch",
+            "end_point": "https://cloudsearch.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CloudTrail",
+            "end_point": "https://cloudtrail.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon CloudWatch",
+            "end_point": "https://monitoring.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon CloudWatch Events",
+            "end_point": "https://events.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon CloudWatch Logs",
+            "end_point": "https://logs.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CodeBuild",
+            "end_point": "https://codebuild.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CodeCommit",
+            "end_point": "https://codecommit.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CodeDeploy",
+            "end_point": "https://codedeploy.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CodePipeline",
+            "end_point": "https://codepipeline.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Cognito Your User Pools",
+            "end_point": "https://cognito-idp.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Cognito Federated Identities",
+            "end_point": "https://cognito-identity.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Cognito Sync",
+            "end_point": "https://cognito-sync.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Config",
+            "end_point": "https://config.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Data Pipeline",
+            "end_point": "https://datapipeline.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Database Migration Service",
+            "end_point": "https://dms.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Device Farm",
+            "end_point": "https://devicefarm.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Direct Connect",
+            "end_point": "https://directconnect.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Directory Service",
+            "end_point": "https://ds.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon DynamoDB",
+            "end_point": "https://dynamodb.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon DynamoDB Streams",
+            "end_point": "https://streams.dynamodb.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon EC2 Container Registry (ECR)",
+            "end_point": "https://ecr.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon EC2 Container Service (ECS)",
+            "end_point": "https://ecs.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon EC2 Systems Manager",
+            "end_point": "https://ssm.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Elastic Beanstalk",
+            "end_point": "https://elasticbeanstalk.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Elastic Beanstalk Health Service",
+            "end_point": "https://elasticbeanstalk-health.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Elastic Compute Cloud (EC2)",
+            "end_point": "https://ec2.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Elastic File System (EFS)",
+            "end_point": "https://elasticfilesystem.**.amazonaws.com"
+        },
+        {
+            "name": "Elastic Load Balancing",
+            "end_point": "https://elasticloadbalancing.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Elastic Transcoder",
+            "end_point": "https://elastictranscoder.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon ElastiCache",
+            "end_point": "https://elasticache.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Elasticsearch Service",
+            "end_point": "https://es.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Elastic MapReduce",
+            "end_point": "https://elasticmapreduce.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon GameLift",
+            "end_point": "https://gamelift.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Glacier",
+            "end_point": "https://glacier.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Inspector",
+            "end_point": "https://inspector.**.amazonaws.com"
+        },
+        {
+            "name": "AWS IoT",
+            "end_point": "https://iot.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Key Management Service",
+            "end_point": "https://kms.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Kinesis Analytics",
+            "end_point": "https://kinesisanalytics.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Kinesis Firehose",
+            "end_point": "https://firehose.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Kinesis Streams",
+            "end_point": "https://kinesis.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Lambda",
+            "end_point": "https://lambda.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Lex",
+            "end_point": "https://runtime.lex.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Lightsail",
+            "end_point": "https://lightsail.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Machine Learning",
+            "end_point": "https://machinelearning.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Mobile Analytics",
+            "end_point": "https://mobileanalytics.**.amazonaws.com"
+        },
+        {
+            "name": "AWS OpsWorks for Chef Automate",
+            "end_point": "https://opsworks-cm.**.amazonaws.com"
+        },
+        {
+            "name": "AWS OpsWorks Stacks",
+            "end_point": "https://opsworks.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Organizations",
+            "end_point": "https://organizations.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Pinpoint",
+            "end_point": "https://pinpoint.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Polly",
+            "end_point": "https://polly.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Redshift",
+            "end_point": "https://redshift.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Rekognition",
+            "end_point": "https://rekognition.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Relational Database Service (RDS)",
+            "end_point": "https://rds.**.amazonaws.com"
+        },
+        {
+            "name": "AWS STS",
+            "end_point": "https://sts.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Service Catalog",
+            "end_point": "https://servicecatalog.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Email Service (SES)",
+            "end_point": "https://email.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Notification Service (SNS)",
+            "end_point": "https://sns.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Queue Service (SQS)",
+            "end_point": "https://sqs.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Queue Service (SQS) Legacy",
+            "end_point": "https://**.queue.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Storage Service (S3)",
+            "end_point": "https://s3.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Simple Workflow Service (SWF)",
+            "end_point": "https://swf.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon SimpleDB",
+            "end_point": "https://sdb.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Snowball",
+            "end_point": "https://snowball.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Step Functions",
+            "end_point": "https://states.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Storage Gateway",
+            "end_point": "https://storagegateway.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Virtual Private Cloud (VPC)",
+            "end_point": "https://ec2.**.amazonaws.com"
+        },
+        {
+            "name": "AWS WAF",
+            "end_point": "https://waf-regional.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon WorkMail",
+            "end_point": "https://autodiscover-service.mail.**.awsapps.com"
+        },
+        {
+            "name": "Amazon WorkSpaces",
+            "end_point": "https://workspaces.**.amazonaws.com"
+        },
+        {
+            "name": "AWS X-Ray",
+            "end_point": "https://xray.**.amazonaws.com"
+        }
+    ]
+}
