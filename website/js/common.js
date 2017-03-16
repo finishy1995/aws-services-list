@@ -1,9 +1,9 @@
 /// <reference types="aws-sdk" />
 
 const SERVICES_GROUP_JSON = '{"计算":["AWS Batch","AWS Elastic Beanstalk","AWS Elastic Beanstalk Health Service","AWS Lambda","Amazon EC2 Container Registry (ECR)","Amazon EC2 Container Service (ECS)","Amazon Elastic Compute Cloud (EC2)","Amazon Lightsail","Auto Scaling"],"存储":["AWS Storage Gateway","Amazon Elastic File System (EFS)","Amazon Glacier","Amazon Simple Storage Service (S3)"],"数据库":["Amazon DynamoDB","Amazon DynamoDB Streams","Amazon ElastiCache","Amazon Redshift","Amazon Relational Database Service (RDS)","Amazon SimpleDB"],"网站和内容分发":["AWS Direct Connect","Amazon Virtual Private Cloud (VPC)","Elastic Load Balancing"],"迁移":["AWS Database Migration Service","AWS Snowball"],"开发人员工具":["AWS CodeBuild","AWS CodeCommit","AWS CodeDeploy","AWS CodePipeline","AWS X-Ray"],"管理工具":["AWS CloudFormation","AWS CloudTrail","AWS Config","AWS OpsWorks Stacks","AWS OpsWorks for Chef Automate","AWS Service Catalog","Amazon CloudWatch","Amazon CloudWatch Events","Amazon CloudWatch Logs","Amazon EC2 Systems Manager"],"安全、身份与合规":["AWS Certificate Manager","AWS CloudHSM","AWS Directory Service","AWS Key Management Service","AWS Organizations","AWS STS","AWS WAF","Amazon Inspector"],"分析":["AWS Data Pipeline","Amazon Athena","Amazon CloudSearch","Amazon Elastic MapReduce","Amazon Elasticsearch Service","Amazon Kinesis Analytics","Amazon Kinesis Firehose","Amazon Kinesis Streams"],"人工智能":["Amazon Lex","Amazon Machine Learning","Amazon Polly","Amazon Rekognition"],"物联网":["AWS IoT"],"游戏开发":["Amazon GameLift"],"移动服务":["AWS Device Farm","Amazon Cognito Federated Identities","Amazon Cognito Sync","Amazon Cognito Your User Pools","Amazon Mobile Analytics","Amazon Pinpoint"],"应用程序服务":["AWS Step Functions","Amazon API Gateway","Amazon Elastic Transcoder","Amazon Simple Workflow Service (SWF)"],"消息":["Amazon Simple Email Service (SES)","Amazon Simple Notification Service (SNS)","Amazon Simple Queue Service (SQS)","Amazon Simple Queue Service (SQS) Legacy"],"企业生产力":["Amazon WorkMail"],"桌面和应用串流":["Amazon AppStream","Amazon AppStream 2.0","Amazon WorkSpaces"]}'
-const ACCESS_KEY_ID = "AKIAIIY24PDBLEXSFNAQ"
-const SECRET_ACCESS_KEY = "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"
-const REGION = "ap-northeast-1"
+const ACCESS_KEY_ID = "**"
+const SECRET_ACCESS_KEY = "**"
+const REGION = "**"
 const REGION_NUMBER = 16
 const TABLE_NAME = "aws-services-status"
 const TABLE_REGIONS = "aws-regions"
