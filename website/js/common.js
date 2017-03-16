@@ -36,6 +36,10 @@ function get_latest_id_from_dynamoDB() {
 		TableName: TABLE_NAME,
 		FilterExpression: "id = :id_value AND service = :service_value",
 		ProjectionExpression: "id, service, latest",
+		ExclusiveStartKey: {
+			"id": {"N": "0"},
+			"service": {"S": "AVAILABLE"}
+		},
 		ExpressionAttributeValues: {
 			":id_value": {"N": "0"},
 			":service_value": {"S": "Latest Update"}
