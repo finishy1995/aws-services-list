@@ -57,15 +57,14 @@ def check_all_services_status():
     client = boto3.client('dynamodb')
     response = client.scan(
         TableName = TABLE_NAME,
-        ScanFilter = {
-            'id': {
-                'AttributeValueList': [
-                    {
-                        'N': '0'
-                    }
-                ],
-                'ComparisonOperator': 'EQ'
-            }
+        FilterExpression = "id = :id_value AND service = :service_value",
+        ExclusiveStartKey = {
+            "id": {"N": "0"},
+            "service": {"S": "AVAILABLE"}
+        },
+        ExpressionAttributeValues = {
+            ":id_value": {"N": "0"},
+            ":service_value": {"S": "Latest Update"}
         }
     )
     # TODO: Set judge in id == 0
