@@ -7,22 +7,16 @@ import boto3
 
 TABLE_NAME = "aws-services-status"
 TABLE_REGIONS = "aws-regions"
-SCAN_ID = '11'
 
 def get_region_id_by_region_name(name):
     client = boto3.client('dynamodb')
     response = client.scan(
         TableName = TABLE_REGIONS,
-        ScanFilter = {
-            'en_name': {
-                'AttributeValueList': [
-                    {
-                        'S': name
-                    }
-                ],
-                'ComparisonOperator': 'EQ'
-            }
+        FilterExpression = "en_name = :name_value",
+        ExpressionAttributeValues = {
+            ":name_value": {"S": name}
         }
+
     )
 
     return response['Items'][0]['region_id']['S']
@@ -96,19 +90,32 @@ def crawler_data_from_AWS():
 
     return services_info
 
-def scan_data_from_dynamoDB(scan_id):
+def scan_data_from_dynamoDB():
     client = boto3.client('dynamodb')
+
+    response_id = client.scan(
+        TableName = TABLE_NAME,
+        FilterExpression = "id = :id_value AND service = :service_value",
+        ExclusiveStartKey = {
+            "id": {"N": "0"},
+            "service": {"S": "AVAILABLE"}
+        },
+        ExpressionAttributeValues = {
+            ":id_value": {"N": "0"},
+            ":service_value": {"S": "Latest Update"}
+        }
+    )
+    index = response_id['Items'][0]['latest']['N']
+
     response = client.scan(
         TableName = TABLE_NAME,
-        ScanFilter = {
-            'id': {
-                'AttributeValueList': [
-                    {
-                        'N': scan_id
-                    }
-                ],
-                'ComparisonOperator': 'EQ'
-            }
+        FilterExpression = "id = :id_value",
+        ExclusiveStartKey = {
+            "id": {"N": index},
+            "service": {"S": "AVAILABLE"}
+        },
+        ExpressionAttributeValues = {
+            ":id_value": {"N": index}
         }
     )
 
@@ -135,5 +142,5 @@ def compare_data_and_show_diff(crawler_data, scan_data):
     return 0
 
 
-compare_data_and_show_diff(crawler_data_from_AWS(), scan_data_from_dynamoDB(SCAN_ID))
+compare_data_and_show_diff(crawler_data_from_AWS(), scan_data_from_dynamoDB())
 
