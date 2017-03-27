@@ -1,0 +1,24 @@
+{
+    "exceptions": [
+	    {
+		    "service": "AWS CodeDeploy",
+		    "region": "cn-north-1"
+	    },
+	    {
+		    "service": "AWS Lambda",
+		    "region": "ap-south-1"
+	    },
+	    {
+		    "service": "AWS Snowball",
+		    "region": "ca-central-1"
+	    },
+	    {
+		    "service": "AWS Storage Gateway",
+		    "region": "ap-south-1"
+	    },
+	    {
+		    "service": "Amazon API Gateway",
+		    "region": "ap-south-1"
+	    }
+	]
+}
