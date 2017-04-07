@@ -1,13 +1,9 @@
 /// <reference types="aws-sdk" />
 
 const SERVICES_GROUP_JSON = '{"计算":["AWS Batch","AWS Elastic Beanstalk","AWS Elastic Beanstalk Health Service","AWS Lambda","Amazon EC2 Container Registry (ECR)","Amazon EC2 Container Service (ECS)","Amazon Elastic Compute Cloud (EC2)","Amazon Lightsail","Auto Scaling"],"存储":["AWS Storage Gateway","Amazon Elastic File System (EFS)","Amazon Glacier","Amazon Simple Storage Service (S3)"],"数据库":["Amazon DynamoDB","Amazon DynamoDB Streams","Amazon ElastiCache","Amazon Redshift","Amazon Relational Database Service (RDS)","Amazon SimpleDB"],"网站和内容分发":["AWS Direct Connect","Amazon Virtual Private Cloud (VPC)","Elastic Load Balancing"],"迁移":["AWS Database Migration Service","AWS Snowball"],"开发人员工具":["AWS CodeBuild","AWS CodeCommit","AWS CodeDeploy","AWS CodePipeline","AWS X-Ray"],"管理工具":["AWS CloudFormation","AWS CloudTrail","AWS Config","AWS OpsWorks Stacks","AWS OpsWorks for Chef Automate","AWS Service Catalog","Amazon CloudWatch","Amazon CloudWatch Events","Amazon CloudWatch Logs","Amazon EC2 Systems Manager"],"安全、身份与合规":["AWS Certificate Manager","AWS CloudHSM","AWS Directory Service","AWS Key Management Service","AWS Organizations","AWS STS","AWS WAF","Amazon Inspector"],"分析":["AWS Data Pipeline","Amazon Athena","Amazon CloudSearch","Amazon Elastic MapReduce","Amazon Elasticsearch Service","Amazon Kinesis Analytics","Amazon Kinesis Firehose","Amazon Kinesis Streams"],"人工智能":["Amazon Lex","Amazon Machine Learning","Amazon Polly","Amazon Rekognition"],"物联网":["AWS IoT"],"游戏开发":["Amazon GameLift"],"移动服务":["AWS Device Farm","Amazon Cognito Federated Identities","Amazon Cognito Sync","Amazon Cognito Your User Pools","Amazon Mobile Analytics","Amazon Pinpoint"],"应用程序服务":["AWS Step Functions","Amazon API Gateway","Amazon Elastic Transcoder","Amazon Simple Workflow Service (SWF)"],"消息":["Amazon Simple Email Service (SES)","Amazon Simple Notification Service (SNS)","Amazon Simple Queue Service (SQS)","Amazon Simple Queue Service (SQS) Legacy"],"企业生产力":["Amazon WorkMail"],"桌面和应用串流":["Amazon AppStream","Amazon AppStream 2.0","Amazon WorkSpaces"]}'
-const EXCEPTIONS_JSON = '{"exceptions":[{"service":"AWS CodeDeploy","region":"cn-north-1"},{"service":"AWS Lambda","region":"ap-south-1"},{"service":"AWS Snowball","region":"ca-central-1"},{"service":"AWS Storage Gateway","region":"ap-south-1"},{"service":"Amazon API Gateway","region":"ap-south-1"}]}'
-const ACCESS_KEY_ID = "**"
-const SECRET_ACCESS_KEY = "**"
-const REGION = "**"
+const EXCEPTIONS_JSON = '{"exceptions":[{"service":"AWS Snowball","region":"ca-central-1"},{"service":"AWS Storage Gateway","region":"ap-south-1"}]}'
+const REGIONS_INFO_JSON = '{"ap-northeast-1":"Tokyo","ap-northeast-2":"Seoul","ap-south-1":"Mumbai","ap-southeast-1":"Singapore","ap-southeast-2":"Sydney","ca-central-1":"Montreal","cn-north-1":"Beijing","eu-central-1":"Frankfurt","eu-west-1":"Ireland","eu-west-2":"London","sa-east-1":"S&atilde;o Paulo","us-east-1":"Northern Virginia","us-east-2":"Ohio","us-gov-west-1":"GovCloud","us-west-1":"Northern California","us-west-2":"Oregon"}'
 const REGION_NUMBER = 16
-const TABLE_NAME = "aws-services-status"
-const TABLE_REGIONS = "aws-regions"
 const DEFAULT_CHECKED_REGION = ["us-east-1", "us-east-2", "us-west-1", "us-west-2", "cn-north-1"]
 const MAX_SELECTED_REGION = 7;
 
@@ -15,85 +11,35 @@ var services_status = []
 var regions_info = []
 
 window.onload = function() {
-	AWS.config = new AWS.Config({
-		"accessKeyId": ACCESS_KEY_ID,
-		"secretAccessKey": SECRET_ACCESS_KEY,
-		"region": REGION
-	});
-
 	get_all_services_status_and_regions_info();
 }
 
 
 function get_all_services_status_and_regions_info() {
-	if (regions_info.length == 0) get_regions_info_from_dynamoDB();
-	if (services_status.length == 0) get_latest_id_from_dynamoDB();
+	if (regions_info.length == 0) get_regions_info_from_json();
+	if (services_status.length == 0) get_all_services_status_from_json();
 }
 
-function get_latest_id_from_dynamoDB() {
-	var dynamodb = new AWS.DynamoDB({region: REGION});
+function get_regions_info_from_json() {
+	var regions_info_json = eval("("+REGIONS_INFO_JSON+")");
+	
+	for (var region_info in regions_info_json) {
+		regions_info[region_info] = regions_info_json[region_info];
+	}
 
-	var scan_latest_id = {
-		TableName: TABLE_NAME,
-		FilterExpression: "id = :id_value AND service = :service_value",
-		ProjectionExpression: "id, service, latest",
-		ExclusiveStartKey: {
-			"id": {"N": "0"},
-			"service": {"S": "AVAILABLE"}
-		},
-		ExpressionAttributeValues: {
-			":id_value": {"N": "0"},
-			":service_value": {"S": "Latest Update"}
-		}
-	};
-	dynamodb.scan(scan_latest_id, function (err, data) {
-		if (err)
-			console.log(err, err.stack);
-		else
-			get_all_services_status_from_dynamoDB(data.Items[0].latest.N);
-	});
+	console.log("The following will be an array which store every regions information.");
+	console.log(regions_info);
+
+	show_regions_checkbox();
 }
 
-function get_all_services_status_from_dynamoDB(latest_id) {
-	var dynamodb = new AWS.DynamoDB({region: REGION});
+function get_all_services_status_from_json() {
+	var services_data = eval("("+SERVICES_STATUS+")");
 
-	var scan_services_status = {
-		TableName: TABLE_NAME,
-		FilterExpression: "id = :id_value",
-		ExclusiveStartKey: {
-			"id": {"N": latest_id},
-			"service": {"S": "AVAILABLE"}
-		},
-		ExpressionAttributeValues: {
-			":id_value": {"N": latest_id}
-		}
-	};
-	dynamodb.scan(scan_services_status, function (err, services_data) {
-		if (err)
-			console.log(err, err.stack);
-		else {
-			store_services_status(services_data);
-			load_current_status_time(services_data.Items[0].time.N);
-			reload_services_status();
-			create_download_csv_file_button();
-		}
-	});
-}
-
-function get_regions_info_from_dynamoDB() {
-	var dynamodb = new AWS.DynamoDB({region: REGION});
-
-	var scan_regions_info = {
-		TableName: TABLE_REGIONS
-	};
-	dynamodb.scan(scan_regions_info, function (err, regions_data) {
-		if (err)
-			console.log(err, err.stack);
-		else {
-			store_regions_info(regions_data);
-			show_regions_checkbox();
-		}
-	});
+	store_services_status(services_data);
+	load_current_status_time(services_data.Items[0].time.N);
+	reload_services_status();
+	create_download_csv_file_button();
 }
 
 function store_services_status(services_data) {
