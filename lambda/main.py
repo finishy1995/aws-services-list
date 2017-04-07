@@ -16,6 +16,8 @@ TIMEOUT = 2
 DEFAULT_REGION = 'us-east-1'
 # Set DynamoDB Table Name
 TABLE_NAME = 'aws-services-status'
+# Set S3 Website Bucket Name
+WEBSITE_BUCKET = 'aws-status-check-website'
 
 def check_service_one_region_status(service, region):
     urllib2.socket.setdefaulttimeout(TIMEOUT)
@@ -99,8 +101,27 @@ def check_all_services_status():
             }
         )
 
-    # TODO: Scan DynamoDB to make sure all services updated already
-    if len(data['services']) <= int(os.getenv('END_RANGE')):
+    return index
+
+    
+def check_all_services_in_dynamodb(index):
+    client = boto3.client('dynamodb')
+
+    response_count = client.scan(
+        TableName = TABLE_NAME,
+        FilterExpression = "id = :id_value AND service = :service_value",
+        ExclusiveStartKey = {
+            "id": {"N": "0"},
+            "service": {"S": "AVAILABLE"}
+        },
+        ExpressionAttributeValues = {
+            ":id_value": {"N": "0"},
+            ":service_value": {"S": "Latest Update"}
+        }
+    )
+    count = int(response_count['Items'][0]['progress']['N'])
+
+    if (count == 5):
         put_available_flag = client.put_item(
             TableName = TABLE_NAME,
             Item = {
@@ -111,7 +132,7 @@ def check_all_services_status():
                     'S': "AVAILABLE"
                 },
                 'ttl': {
-                    'N': str(TTL_TIME + present_time)
+                    'N': str(TTL_TIME + int(time.time()))
                 }
             }
         )
@@ -126,13 +147,61 @@ def check_all_services_status():
                 },
                 'latest': {
                     'N': str(index)
+                },
+                'progress': {
+                    'N': '0'
+                }
+            }
+        )
+        update_json_file_to_s3(index)
+    else:
+        update_flag = client.put_item(
+            TableName = TABLE_NAME,
+            Item = {
+                'id': {
+                    'N': '0'
+                },
+                'service': {
+                    'S': 'Latest Update'
+                },
+                'latest': {
+                    'N': str(index - 1)
+                },
+                'progress': {
+                    'N': str(count + 1)
                 }
             }
         )
 
+
+
+def update_json_file_to_s3(index):
+    client = boto3.client('dynamodb')
+
+    response = client.scan(
+        TableName = TABLE_NAME,
+        FilterExpression = "id = :id_value",
+        ExclusiveStartKey = {
+            "id": {"N": str(index)},
+            "service": {"S": "AVAILABLE"}
+        },
+        ExpressionAttributeValues = {
+            ":id_value": {"N": str(index)}
+        }
+    )
+    
+    response_json = json.dumps(response, sort_keys=True, separators=(',', ': '))
+    file = open('/tmp/data.js', 'w')
+    file.write("const SERVICES_STATUS = '"+response_json+"'")
+    file.close()
+
+    s3 = boto3.resource('s3')
+    s3.Bucket(WEBSITE_BUCKET).upload_file('/tmp/data.js', 'data/services_status.js')
+
 def lambda_handler(event, context):
     # Check all AWS services at all recorded regions status
-    check_all_services_status()
+    index = check_all_services_status()
+    check_all_services_in_dynamodb(index)
     
     return "Done."
 
