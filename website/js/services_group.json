@@ -30,7 +30,9 @@
 		"Elastic Load Balancing"
 	],
 	"迁移": [
+		"AWS Application Discovery Service",
 		"AWS Database Migration Service",
+		"Amazon Server Migration Service",
 		"AWS Snowball"
 	],
 	"开发人员工具": [
@@ -53,6 +55,7 @@
 		"Amazon EC2 Systems Manager"
 	],
 	"安全、身份与合规": [
+		"Amazon Cloud Directory",
 		"AWS Certificate Manager",
 		"AWS CloudHSM",
 		"AWS Directory Service",
