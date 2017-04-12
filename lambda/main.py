@@ -18,6 +18,8 @@ DEFAULT_REGION = 'us-east-1'
 TABLE_NAME = 'aws-services-status'
 # Set S3 Website Bucket Name
 WEBSITE_BUCKET = 'aws-status-check-website'
+# Set the number of lambda ($lambda - 1)
+LAMBDA_NUMBER = 5
 
 def check_service_one_region_status(service, region):
     urllib2.socket.setdefaulttimeout(TIMEOUT)
@@ -121,7 +123,7 @@ def check_all_services_in_dynamodb(index):
     )
     count = int(response_count['Items'][0]['progress']['N'])
 
-    if (count == 5):
+    if (count == LAMBDA_NUMBER):
         put_available_flag = client.put_item(
             TableName = TABLE_NAME,
             Item = {

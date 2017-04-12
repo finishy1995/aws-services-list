@@ -382,6 +382,18 @@
         {
             "name": "AWS X-Ray",
             "end_point": "https://xray.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Cloud Directory",
+            "end_point": "https://clouddirectory.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Application Discovery Service",
+            "end_point": "https://discovery.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Server Migration Service",
+            "end_point": "https://sms.**.amazonaws.com"
         }
     ]
 }
