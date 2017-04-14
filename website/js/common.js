@@ -3,7 +3,6 @@
 const SERVICES_GROUP_JSON = '{"计算":["AWS Batch","AWS Elastic Beanstalk","AWS Elastic Beanstalk Health Service","AWS Lambda","Amazon EC2 Container Registry (ECR)","Amazon EC2 Container Service (ECS)","Amazon Elastic Compute Cloud (EC2)","Amazon Lightsail","Auto Scaling"],"存储":["AWS Storage Gateway","Amazon Elastic File System (EFS)","Amazon Glacier","Amazon Simple Storage Service (S3)"],"数据库":["Amazon DynamoDB","Amazon DynamoDB Streams","Amazon ElastiCache","Amazon Redshift","Amazon Relational Database Service (RDS)","Amazon SimpleDB"],"网站和内容分发":["AWS Direct Connect","Amazon Virtual Private Cloud (VPC)","Elastic Load Balancing"],"迁移":["AWS Application Discovery Service","AWS Database Migration Service","Amazon Server Migration Service","AWS Snowball"],"开发人员工具":["AWS CodeBuild","AWS CodeCommit","AWS CodeDeploy","AWS CodePipeline","AWS X-Ray"],"管理工具":["AWS CloudFormation","AWS CloudTrail","AWS Config","AWS OpsWorks Stacks","AWS OpsWorks for Chef Automate","AWS Service Catalog","Amazon CloudWatch","Amazon CloudWatch Events","Amazon CloudWatch Logs","Amazon EC2 Systems Manager"],"安全、身份与合规":["Amazon Cloud Directory","AWS Certificate Manager","AWS CloudHSM","AWS Directory Service","AWS Key Management Service","AWS Organizations","AWS STS","AWS WAF","Amazon Inspector"],"分析":["AWS Data Pipeline","Amazon Athena","Amazon CloudSearch","Amazon Elastic MapReduce","Amazon Elasticsearch Service","Amazon Kinesis Analytics","Amazon Kinesis Firehose","Amazon Kinesis Streams"],"人工智能":["Amazon Lex","Amazon Machine Learning","Amazon Polly","Amazon Rekognition"],"物联网":["AWS IoT"],"游戏开发":["Amazon GameLift"],"移动服务":["AWS Device Farm","Amazon Cognito Federated Identities","Amazon Cognito Sync","Amazon Cognito Your User Pools","Amazon Mobile Analytics","Amazon Pinpoint"],"应用程序服务":["AWS Step Functions","Amazon API Gateway","Amazon Elastic Transcoder","Amazon Simple Workflow Service (SWF)"],"消息":["Amazon Simple Email Service (SES)","Amazon Simple Notification Service (SNS)","Amazon Simple Queue Service (SQS)","Amazon Simple Queue Service (SQS) Legacy"],"企业生产力":["Amazon WorkMail"],"桌面和应用串流":["Amazon AppStream","Amazon AppStream 2.0","Amazon WorkSpaces"]}'
 const EXCEPTIONS_JSON = '{"exceptions":[{"service":"AWS Snowball","region":"ca-central-1"},{"service":"AWS Storage Gateway","region":"ap-south-1"}]}'
 const REGIONS_INFO_JSON = '{"ap-northeast-1":"Tokyo","ap-northeast-2":"Seoul","ap-south-1":"Mumbai","ap-southeast-1":"Singapore","ap-southeast-2":"Sydney","ca-central-1":"Montreal","cn-north-1":"Beijing","eu-central-1":"Frankfurt","eu-west-1":"Ireland","eu-west-2":"London","sa-east-1":"S&atilde;o Paulo","us-east-1":"Northern Virginia","us-east-2":"Ohio","us-gov-west-1":"GovCloud","us-west-1":"Northern California","us-west-2":"Oregon"}'
-const REGION_NUMBER = 16
 const DEFAULT_CHECKED_REGION = ["us-east-1", "us-east-2", "us-west-1", "us-west-2", "cn-north-1"]
 const MAX_SELECTED_REGION = 7;
 
@@ -37,7 +36,7 @@ function get_all_services_status_from_json() {
 	var services_data = eval("("+SERVICES_STATUS+")");
 
 	store_services_status(services_data);
-	load_current_status_time(services_data.Items[0].time.N);
+	load_current_status_time(services_data.time);
 	reload_services_status();
 	create_download_csv_file_button();
 }
@@ -46,14 +45,13 @@ function store_services_status(services_data) {
 	var region_key;
 	var status_key;
 	console.log("The following will be an array which store every services status in every region:");
+	console.log(services_data);
 
 	for (var i = 0; i < services_data.Count; i++) {
-		services_status[services_data.Items[i].service.S] = [];
-		for (var j = 0; j < REGION_NUMBER; j++) {
-			region_key = "region"+String(j);
-			status_key = "status"+String(j);
-			services_status[services_data.Items[i].service.S][services_data.Items[i].regions_info.M[region_key].S] = services_data.Items[i].regions_info.M[status_key].N;
-		}
+		if (!services_status.hasOwnProperty(services_data.Items[i].service.S))
+			services_status[services_data.Items[i].service.S] = [];
+
+		services_status[services_data.Items[i].service.S][services_data.Items[i].region.S] = services_data.Items[i].status.N;
 	}
 	
 	console.log(services_status);
@@ -215,6 +213,10 @@ function reload_services_status() {
 					services_status_node[j+1] = document.createElement("span");
 					services_status_node[j+1].className = "glyphicon glyphicon-remove";
 					services_status_td[j+1].style.color = "#FE4C40";
+				}
+				else {
+					services_status_node[j+1] = document.createElement("span");
+					services_status_td[j+1].style.color = "#FFF";
 				}
 
 				services_status_td[j+1].style.verticalAlign = "middle";
