@@ -33,6 +33,11 @@
 - David Wang **@finishy1995**
 
 
+## [版本历史](id:versions)
+
+- 2017-04-13
+- 2017-06-02 新增CodeStar、QuickSight、WorkDocs三项服务的检测；修复所有已知Bug。
+
 ## [项目部署](id:deploy)
 
 ### [Amazon CloudWatch Events](id:CloudWatchEvents)
