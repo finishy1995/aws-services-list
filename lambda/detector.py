@@ -59,7 +59,7 @@ def store_data_to_dynamodb(service, region, status):
         }
     )
 
-    if ((query_flag['Count'] == 0) or ((query_flag['Items'][0]['status']['N'] == 0) and status)):
+    if ((query_flag['Count'] == 0) or ((query_flag['Items'][0]['status']['N'] == '0') and status)):
         put_flag = client.put_item(
             TableName = TABLE_NAME,
             Item = {

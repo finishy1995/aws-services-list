@@ -40,6 +40,7 @@
 		"AWS CodeCommit",
 		"AWS CodeDeploy",
 		"AWS CodePipeline",
+		"AWS CodeStar",
 		"AWS X-Ray"
 	],
 	"管理工具": [
@@ -73,7 +74,8 @@
 		"Amazon Elasticsearch Service",
 		"Amazon Kinesis Analytics",
 		"Amazon Kinesis Firehose",
-		"Amazon Kinesis Streams"
+		"Amazon Kinesis Streams",
+		"Amazon QuickSight"
 	],
 	"人工智能": [
 		"Amazon Lex",
@@ -108,7 +110,8 @@
 		"Amazon Simple Queue Service (SQS) Legacy"
 	],
 	"企业生产力": [
-		"Amazon WorkMail"
+		"Amazon WorkMail",
+		"Amazon WorkDocs"
 	],
 	"桌面和应用串流": [
 		"Amazon AppStream",

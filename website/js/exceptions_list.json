@@ -3,10 +3,6 @@
 	    {
 		    "service": "AWS Snowball",
 		    "region": "ca-central-1"
-	    },
-	    {
-		    "service": "AWS Storage Gateway",
-		    "region": "ap-south-1"
 	    }
 	]
 }

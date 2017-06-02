@@ -139,6 +139,10 @@
             "name": "AWS CodePipeline",
             "end_point": "https://codepipeline.**.amazonaws.com"
         },
+		{
+			"name": "AWS CodeStar",
+			"end_point": "https://codestar.**.amazonaws.com"
+		},
         {
             "name": "Amazon Cognito Your User Pools",
             "end_point": "https://cognito-idp.**.amazonaws.com"
@@ -304,6 +308,10 @@
             "end_point": "https://polly.**.amazonaws.com"
         },
         {
+            "name": "Amazon QuickSight",
+            "end_point": "https://**.quicksight.aws.amazon.com/sn/start"
+        },
+        {
             "name": "Amazon Redshift",
             "end_point": "https://redshift.**.amazonaws.com"
         },
@@ -371,6 +379,10 @@
             "name": "AWS WAF",
             "end_point": "https://waf-regional.**.amazonaws.com"
         },
+		{
+			"name": "Amazon WorkDocs",
+			"end_point": "https://workdocs.**.amazonaws.com"
+		},
         {
             "name": "Amazon WorkMail",
             "end_point": "https://autodiscover-service.mail.**.awsapps.com"
