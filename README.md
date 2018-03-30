@@ -26,7 +26,7 @@
 
 示例页面见下面的网址：
 
-[http://aws-status-check-website.s3-website-ap-northeast-1.amazonaws.com](http://aws-status-check-website.s3-website-ap-northeast-1.amazonaws.com)
+[https://s3.ap-northeast-2.amazonaws.com/aws-status-check-website/index.html](https://s3.ap-northeast-2.amazonaws.com/aws-status-check-website/index.html)
 
 
 ## [特别感谢](id:特别感谢)
