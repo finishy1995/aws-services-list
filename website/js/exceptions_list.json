@@ -1,8 +1,4 @@
 {
     "exceptions": [
-	    {
-		    "service": "AWS Snowball",
-		    "region": "ca-central-1"
-	    }
 	]
 }

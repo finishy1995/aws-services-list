@@ -4,9 +4,10 @@
 import json
 import boto3
 import time
+import os
 
-TABLE_NAME = 'aws-services-list'
-WEBSITE_BUCKET = 'aws-status-check-website'
+TABLE_NAME = os.getenv('dynamodb_table')
+WEBSITE_BUCKET = os.getenv('bucket')
 
 
 def update_json_file_to_s3():
@@ -21,9 +22,27 @@ def update_json_file_to_s3():
             "#s": "status"
         }
     )
+    flag = response.has_key('LastEvaluatedKey')
+    items = response['Items']
+    count = response['Count']
+
+    while (flag):
+        response = client.scan(
+            TableName = TABLE_NAME,
+            Select = 'SPECIFIC_ATTRIBUTES',
+            ProjectionExpression = 'service, #r, #s',
+            ExpressionAttributeNames = {
+                "#r": "region",
+                "#s": "status"
+            },
+            ExclusiveStartKey = response['LastEvaluatedKey']
+        )
+
+        items = items + response['Items']
+        flag = response.has_key('LastEvaluatedKey')
+        count += response['Count']
     
-    response['time'] = int(time.time())
-    
+    response = {'Items': items, 'time': int(time.time()), 'Count': count}
     response_json = json.dumps(response, sort_keys=True, separators=(',', ': '))
     file = open('/tmp/data.js', 'w')
     file.write("const SERVICES_STATUS = '"+response_json+"'")
@@ -36,7 +55,3 @@ def lambda_handler(event, context):
     update_json_file_to_s3()
 
     return "Done."
-
-# Lambda do not need this
-# lambda_handler(0, 0)
-

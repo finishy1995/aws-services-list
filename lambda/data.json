@@ -33,6 +33,10 @@
             "name": "EU"
         },
         {
+            "id": "eu-west-3",
+            "name": "EU"
+        },
+        {
             "id": "ap-southeast-1",
             "name": "Asia Pacific"
         },
@@ -42,6 +46,10 @@
         },
         {
             "id": "ap-northeast-2",
+            "name": "Asia Pacific"
+        },
+        {
+            "id": "ap-northeast-3",
             "name": "Asia Pacific"
         },
         {
@@ -64,9 +72,18 @@
             "id": "cn-north-1",
             "name": "China North",
             "suffix": ".cn"
+        },
+        {
+            "id": "cn-northwest-1",
+            "name": "China North West",
+            "suffix": ".cn"
         }
     ],
     "services": [
+        {
+            "name": "Alexa for Business",
+            "end_point": "https://a4b.**.amazonaws.com"
+        },
         {
             "name": "Amazon API Gateway",
             "end_point": "https://apigateway.**.amazonaws.com"
@@ -84,16 +101,32 @@
             "end_point": "https://autoscaling.**.amazonaws.com"
         },
         {
-            "name": "AWS Batch",
-            "end_point": "https://batch.**.amazonaws.com"
+            "name": "AWS AppSync",
+            "end_point": "https://appsync.**.amazonaws.com"
         },
         {
             "name": "Amazon Athena",
             "end_point": "https://athena.**.amazonaws.com"
         },
         {
+            "name": "AWS Batch",
+            "end_point": "https://batch.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Billing Price List Service",
+            "end_point": "https://api.pricing.**.amazonaws.com"
+        },
+        {
             "name": "AWS Certificate Manager",
             "end_point": "https://acm.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Cloud9",
+            "end_point": "https://cloud9.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Cloud Directory",
+            "end_point": "https://clouddirectory.**.amazonaws.com"
         },
         {
             "name": "AWS CloudFormation",
@@ -101,6 +134,10 @@
         },
         {
             "name": "AWS CloudHSM",
+            "end_point": "https://cloudhsmv2.**.amazonaws.com"
+        },
+        {
+            "name": "AWS CloudHSM Classic",
             "end_point": "https://cloudhsm.**.amazonaws.com"
         },
         {
@@ -156,8 +193,20 @@
             "end_point": "https://cognito-sync.**.amazonaws.com"
         },
         {
+            "name": "Amazon Comprehend",
+            "end_point": "https://comprehend.**.amazonaws.com"
+        },
+        {
             "name": "AWS Config",
             "end_point": "https://config.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Config Rules",
+            "end_point": "https://configrules.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Connect",
+            "end_point": "https://connect.**.amazonaws.com"
         },
         {
             "name": "AWS Data Pipeline",
@@ -182,6 +231,10 @@
         {
             "name": "Amazon DynamoDB",
             "end_point": "https://dynamodb.**.amazonaws.com"
+        },
+        {
+            "name": "DynamoDB Accelerator (DAX)",
+            "end_point": "https://dax.**.amazonaws.com"
         },
         {
             "name": "Amazon DynamoDB Streams",
@@ -232,7 +285,7 @@
             "end_point": "https://es.**.amazonaws.com"
         },
         {
-            "name": "Amazon Elastic MapReduce",
+            "name": "Amazon Elastic MapReduce (EMR)",
             "end_point": "https://elasticmapreduce.**.amazonaws.com"
         },
         {
@@ -242,6 +295,18 @@
         {
             "name": "Amazon Glacier",
             "end_point": "https://glacier.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Glue",
+            "end_point": "https://glue.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Greengrass",
+            "end_point": "https://greengrass.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon GuardDuty",
+            "end_point": "https://guardduty.**.amazonaws.com"
         },
         {
             "name": "Amazon Inspector",
@@ -264,8 +329,12 @@
             "end_point": "https://firehose.**.amazonaws.com"
         },
         {
-            "name": "Amazon Kinesis Streams",
+            "name": "Amazon Kinesis Data Streams",
             "end_point": "https://kinesis.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Kinesis Video Streams",
+            "end_point": "https://kinesisvideo.**.amazonaws.com"
         },
         {
             "name": "AWS Lambda",
@@ -284,8 +353,40 @@
             "end_point": "https://machinelearning.**.amazonaws.com"
         },
         {
+            "name": "Amazon MediaConvert",
+            "end_point": "https://mediaconvert.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon MediaLive",
+            "end_point": "https://medialive.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon MediaPackage",
+            "end_point": "https://mediapackage.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon MediaStore",
+            "end_point": "https://mediastore.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon MediaTailor",
+            "end_point": "https://mediatailor.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Mechanical Turk",
+            "end_point": "https://mturk-requester-sandbox.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Migration Hub",
+            "end_point": "https://mgh.**.amazonaws.com"
+        },
+        {
             "name": "Amazon Mobile Analytics",
             "end_point": "https://mobileanalytics.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon MQ",
+            "end_point": "https://mq.**.amazonaws.com"
         },
         {
             "name": "AWS OpsWorks for Chef Automate",
@@ -324,8 +425,32 @@
             "end_point": "https://rds.**.amazonaws.com"
         },
         {
+            "name": "AWS Resource Groups",
+            "end_point": "https://resource-groups.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Route 53 Domain Registration",
+            "end_point": "https://route53domains.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Route 53 Auto Naming",
+            "end_point": "https://servicediscovery.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Server Migration Service",
+            "end_point": "https://sms.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon SageMaker",
+            "end_point": "https://sagemaker.**.amazonaws.com"
+        },
+        {
             "name": "AWS STS",
             "end_point": "https://sts.**.amazonaws.com"
+        },
+        {
+            "name": "AWS Serverless Application Repository",
+            "end_point": "https://serverlessrepo.**.amazonaws.com"
         },
         {
             "name": "AWS Service Catalog",
@@ -372,6 +497,14 @@
             "end_point": "https://storagegateway.**.amazonaws.com"
         },
         {
+            "name": "Amazon Transcribe",
+            "end_point": "https://transcribe.**.amazonaws.com"
+        },
+        {
+            "name": "Amazon Translate",
+            "end_point": "https://translate.**.amazonaws.com"
+        },
+        {
             "name": "Amazon Virtual Private Cloud (VPC)",
             "end_point": "https://ec2.**.amazonaws.com"
         },
@@ -396,16 +529,8 @@
             "end_point": "https://xray.**.amazonaws.com"
         },
         {
-            "name": "Amazon Cloud Directory",
-            "end_point": "https://clouddirectory.**.amazonaws.com"
-        },
-        {
             "name": "AWS Application Discovery Service",
             "end_point": "https://discovery.**.amazonaws.com"
-        },
-        {
-            "name": "Amazon Server Migration Service",
-            "end_point": "https://sms.**.amazonaws.com"
         }
     ]
 }

@@ -14,5 +14,8 @@
 	"us-east-2": "Ohio",
 	"us-gov-west-1": "GovCloud",
 	"us-west-1": "Northern California",
-	"us-west-2": "Oregon"
+	"us-west-2": "Oregon",
+	"ap-northeast-3": "Osaka",
+	"cn-northwest-1": "Ningxia",
+	"eu-west-3": "Paris"
 }

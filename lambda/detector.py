@@ -5,13 +5,14 @@ import urllib2
 from ssl import SSLError
 import boto3
 import time
+import os
 
 # Set time out time for url get
-TIMEOUT = 2
+TIMEOUT = int(os.getenv('timeout'))
 # Set default region because some services end_point omit it
 DEFAULT_REGION = 'us-east-1'
 # Set DynamoDB Table Name
-TABLE_NAME = 'aws-services-list'
+TABLE_NAME = os.getenv('dynamodb_table')
 
 def check_service_one_region_status(endpoint, region):
     urllib2.socket.setdefaulttimeout(TIMEOUT)
@@ -21,7 +22,7 @@ def check_service_one_region_status(endpoint, region):
     req = urllib2.Request(url)
 
     try:
-        response = urllib2.urlopen(req, timeout=TIMEOUT)
+        response = urllib2.urlopen(req, timeout = TIMEOUT)
     except SSLError:
         return False
     except urllib2.socket.timeout, e:
@@ -84,7 +85,3 @@ def lambda_handler(event, context):
     store_data_to_dynamodb(event['service'], event['region'], boolean)
 
     return "Done."
-
-# Lambda do not need this
-# lambda_handler(0, 0)
-

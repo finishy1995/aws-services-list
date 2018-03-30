@@ -3,9 +3,10 @@
 
 import json
 import boto3
+import os
 
 # Set Lambda function name
-LAMBDA_NAME = 'aws-services-list-detector'
+LAMBDA_NAME = os.getenv('detector')
 
 def check_all_services_status(min_range, max_range):
     with open('data.json') as json_input:
@@ -36,6 +37,3 @@ def lambda_handler(event, context):
     check_all_services_status(event['min_services'], event['max_services'])
     
     return "Done."
-
-# Lambda do not need this
-# lambda_handler(0, 0)
