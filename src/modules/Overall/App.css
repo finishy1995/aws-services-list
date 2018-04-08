@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+.site-logo {
+    width: 200px;
+    float: left;
+    margin-right: 20px;
+}
