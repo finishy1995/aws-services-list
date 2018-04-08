@@ -9,19 +9,6 @@ const tableDescription = (
 );
 
 class ServicesListTools extends Component {
-  handleServicesStatus() {
-    var tableServicesStatus = [];
-    
-    for (var i=0; i<this.props.servicesStatus.Count; i++) {
-	  if (!tableServicesStatus.hasOwnProperty(this.props.servicesStatus.Items[i].service.S))
-	    tableServicesStatus[this.props.servicesStatus.Items[i].service.S] = [];
-
-		tableServicesStatus[this.props.servicesStatus.Items[i].service.S][this.props.servicesStatus.Items[i].region.S] = this.props.servicesStatus.Items[i].status.N;
-    }
-    
-    return tableServicesStatus;
-  }
-  
   downloadCSVFile() {
     var str = "Services Offered,";
     for (var key in this.props.regionsChecked) {
@@ -29,16 +16,15 @@ class ServicesListTools extends Component {
     }
     str += "\n";
     
-    var tableServicesStatus = this.handleServicesStatus();
-    for (key in tableServicesStatus) {
+    for (key in this.props.servicesStatus.Items) {
       str += key+",";
       for (var regionKey in this.props.regionsChecked) {
-        if (tableServicesStatus[key][regionKey] === '0') {
+        if (this.props.servicesStatus.Items[key][regionKey] === '0') {
 				  str += "×,";
-        } else if (tableServicesStatus[key][regionKey] === '1') {
+        } else if (this.props.servicesStatus.Items[key][regionKey] === '1') {
           str += "√,";
         } else {
-          str += tableServicesStatus[key][regionKey] + ',';
+          str += this.props.servicesStatus.Items[key][regionKey] + ',';
         }
       }
       

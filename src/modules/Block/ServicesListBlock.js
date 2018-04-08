@@ -41,7 +41,16 @@ class ServicesListBlock extends Component {
     }
     
     loadData("servicesStatus", this, function(data, caller) {
-      caller.setState({ servicesStatus: data });
+      var tableServicesStatus = [];
+      
+      for (var i=0; i<data.Count; i++) {
+	      if (!tableServicesStatus.hasOwnProperty(data.Items[i].service.S)) 
+	        tableServicesStatus[data.Items[i].service.S] = [];
+
+		    tableServicesStatus[data.Items[i].service.S][data.Items[i].region.S] = data.Items[i].status.N;
+      }
+    
+      caller.setState({ servicesStatus: { 'Count': data.Count, 'time': data.time, 'Items': tableServicesStatus  } });
     });
     
     loadData("servicesGroup", this, function(data, caller) {
@@ -73,7 +82,7 @@ class ServicesListBlock extends Component {
   render() {
     return (
       <Layout style={{ padding: '24px 0', background: '#fff', marginTop: '40px' }}>
-        <ServicesListSelect regionsList={ this.state.regionsList } changeRegionsChecked={ this.changeRegionsChecked } regionIfChecked={ this.regionIfChecked } />
+        <ServicesListSelect regionsList={ this.state.regionsList } changeRegionsChecked={ this.changeRegionsChecked } regionIfChecked={ this.regionIfChecked } servicesGroup={ this.state.servicesGroup }/>
         <Layout style={{ background: '#fff' }}>
           <ServicesListTools lastUpdated={ this.state.servicesStatus.time } regionsChecked={ this.state.regionsChecked } servicesStatus={ this.state.servicesStatus } />
           <ServicesListTable regionsChecked={ this.state.regionsChecked } servicesStatus={ this.state.servicesStatus } servicesGroup={ this.state.servicesGroup } />

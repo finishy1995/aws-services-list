@@ -9,19 +9,6 @@ const colorMapping = {
 
 class ServicesListTable extends Component {
   loading = true;
-  
-  handleServicesStatus() {
-    var tableServicesStatus = [];
-    
-    for (var i=0; i<this.props.servicesStatus.Count; i++) {
-	  if (!tableServicesStatus.hasOwnProperty(this.props.servicesStatus.Items[i].service.S))
-	    tableServicesStatus[this.props.servicesStatus.Items[i].service.S] = [];
-
-		tableServicesStatus[this.props.servicesStatus.Items[i].service.S][this.props.servicesStatus.Items[i].region.S] = this.props.servicesStatus.Items[i].status.N;
-    }
-    
-    return tableServicesStatus;
-  }
 
   tableColumns() {
     var servicesFilters = [];
@@ -60,7 +47,6 @@ class ServicesListTable extends Component {
     
     if ((this.props.servicesStatus.Count > 0) && (this.props.servicesGroup !== {})) {
       var count = 0;
-      var tableServicesStatus = this.handleServicesStatus();
       
       for (var key in this.props.servicesGroup) {
         var groupItem = {
@@ -80,7 +66,7 @@ class ServicesListTable extends Component {
           };
           count++;
           for (regionKey in this.props.regionsChecked) {
-            switch (tableServicesStatus[this.props.servicesGroup[key][i]][regionKey]) {
+            switch (this.props.servicesStatus.Items[this.props.servicesGroup[key][i]][regionKey]) {
               case '0':
                 serviceItem[regionKey] = 'close';
                 break;
