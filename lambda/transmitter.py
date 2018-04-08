@@ -44,12 +44,12 @@ def update_json_file_to_s3():
     
     response = {'Items': items, 'time': int(time.time()), 'Count': count}
     response_json = json.dumps(response, sort_keys=True, separators=(',', ': '))
-    file = open('/tmp/data.js', 'w')
-    file.write("const SERVICES_STATUS = '"+response_json+"'")
+    file = open('/tmp/data.json', 'w')
+    file.write(response_json)
     file.close()
 
     s3 = boto3.resource('s3')
-    s3.Bucket(WEBSITE_BUCKET).upload_file('/tmp/data.js', 'data/services_status.js')
+    s3.Bucket(WEBSITE_BUCKET).upload_file('/tmp/data.json', 'data/servicesStatus.json')
 
 def lambda_handler(event, context):
     update_json_file_to_s3()
