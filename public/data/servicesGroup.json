@@ -1,5 +1,5 @@
 {
-	"计算": [
+	"Compute": [
 		"AWS Batch",
 		"AWS Elastic Beanstalk",
 		"AWS Elastic Beanstalk Health Service",
@@ -11,13 +11,13 @@
 		"Auto Scaling",
 		"AWS Serverless Application Repository"
 	],
-	"存储": [
+	"Storage": [
 		"AWS Storage Gateway",
 		"Amazon Elastic File System (EFS)",
 		"Amazon Glacier",
 		"Amazon Simple Storage Service (S3)"
 	],
-	"数据库": [
+	"Database": [
 		"Amazon DynamoDB",
 		"Amazon DynamoDB Streams",
 		"DynamoDB Accelerator (DAX)",
@@ -26,20 +26,20 @@
 		"Amazon Relational Database Service (RDS)",
 		"Amazon SimpleDB"
 	],
-	"网站和内容分发": [
+	"Networking & Content Delivery": [
 		"AWS Direct Connect",
 		"Amazon Virtual Private Cloud (VPC)",
 		"Elastic Load Balancing",
 		"Amazon Route 53 Domain Registration",
 		"Amazon Route 53 Auto Naming"
 	],
-	"迁移": [
+	"Migration": [
 		"AWS Application Discovery Service",
 		"AWS Database Migration Service",
 		"Amazon Server Migration Service",
 		"AWS Snowball"
 	],
-	"开发人员工具": [
+	"Developer Tools": [
 		"AWS CodeBuild",
 		"AWS CodeCommit",
 		"AWS CodeDeploy",
@@ -48,7 +48,7 @@
 		"AWS X-Ray",
 		"AWS Cloud9"
 	],
-	"管理工具": [
+	"Management Tools": [
 		"AWS CloudFormation",
 		"AWS CloudTrail",
 		"AWS Config",
@@ -62,14 +62,15 @@
 		"Amazon EC2 Systems Manager",
 		"AWS Resource Groups"
 	],
-	"媒体服务": [
+	"Media Services": [
+	    "Amazon Elastic Transcoder",
 		"Amazon MediaConvert",
 		"Amazon MediaLive",
 		"Amazon MediaPackage",
 		"Amazon MediaStore",
 		"Amazon MediaTailor"
 	],
-	"安全、身份与合规": [
+	"Security, Identity & Compliance": [
 		"Amazon Cloud Directory",
 		"AWS Certificate Manager",
 		"AWS CloudHSM",
@@ -82,7 +83,7 @@
 		"Amazon Inspector",
 		"Amazon GuardDuty"
 	],
-	"分析": [
+	"Analytics": [
 		"AWS Data Pipeline",
 		"Amazon Athena",
 		"Amazon CloudSearch",
@@ -95,7 +96,7 @@
 		"Amazon QuickSight",
 		"Amazon Glue"
 	],
-	"人工智能": [
+	"Machine Learning": [
 		"Amazon Lex",
 		"Amazon Machine Learning",
 		"Amazon Polly",
@@ -105,14 +106,15 @@
 		"Amazon Transcribe",
 		"Amazon Translate"
 	],
-	"物联网": [
+	"Internet of Things": [
 		"AWS IoT",
 		"Amazon Greengrass"
 	],
-	"游戏开发": [
+	"Game Development": [
 		"Amazon GameLift"
 	],
-	"移动服务": [
+	"Mobile Services": [
+	    "Amazon API Gateway",
 		"AWS Device Farm",
 		"Amazon Cognito Federated Identities",
 		"Amazon Cognito Sync",
@@ -121,31 +123,27 @@
 		"Amazon Pinpoint",
 		"AWS AppSync"
 	],
-	"应用程序服务": [
-		"AWS Step Functions",
-		"Amazon API Gateway",
-		"Amazon Elastic Transcoder",
-		"Amazon Simple Workflow Service (SWF)"
-	],
-	"消息": [
+	"Application Integration": [
+	    "AWS Step Functions",
 		"Amazon Simple Email Service (SES)",
 		"Amazon Simple Notification Service (SNS)",
 		"Amazon Simple Queue Service (SQS)",
 		"Amazon Simple Queue Service (SQS) Legacy",
 		"Amazon Connect",
-		"Amazon MQ"
+		"Amazon MQ",
+		"Amazon Simple Workflow Service (SWF)"
 	],
-	"企业生产力": [
+	"Business Productivity": [
 		"Amazon WorkMail",
 		"Amazon WorkDocs",
 		"Alexa for Business"
 	],
-	"桌面和应用串流": [
+	"Desktop & App Streaming": [
 		"Amazon AppStream",
 		"Amazon AppStream 2.0",
 		"Amazon WorkSpaces"
 	],
-	"其他": [
+	"Others": [
 		"AWS Billing Price List Service",
 		"Amazon Mechanical Turk"
 	]
