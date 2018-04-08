@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Table, Icon } from 'antd';
 import './ServicesListTable.css';
 
+const colorMapping = {
+  'check': '#00FF80',
+  'close': '#FE4C40'
+};
+
 class ServicesListTable extends Component {
   loading = true;
   
@@ -31,7 +36,6 @@ class ServicesListTable extends Component {
       title: 'Services Offered',
       dataIndex: 'services',
       key: 'services',
-      fixed: 'left',
       width: 400,
       filters: servicesFilters,
       onFilter: (value, record) => record.services.indexOf(value) === 0,
@@ -44,7 +48,7 @@ class ServicesListTable extends Component {
         key: key,
         align: 'center',
         width: 150,
-        render: text => <Icon type={text} />
+        render: text => ( <Icon type={text} style={{ color: colorMapping[text], fontWeight: 900 }} /> )
       });
     }
     
@@ -78,10 +82,10 @@ class ServicesListTable extends Component {
           for (regionKey in this.props.regionsChecked) {
             switch (tableServicesStatus[this.props.servicesGroup[key][i]][regionKey]) {
               case '0':
-                serviceItem[regionKey] = 'check';
+                serviceItem[regionKey] = 'close';
                 break;
               case '1':
-                serviceItem[regionKey] = 'close';
+                serviceItem[regionKey] = 'check';
                 break;
               default:
                 serviceItem[regionKey] = '';

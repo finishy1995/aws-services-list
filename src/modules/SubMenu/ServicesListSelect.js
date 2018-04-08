@@ -12,10 +12,6 @@ class ServicesListSelect extends Component {
     checkAll: false
   };
   
-  handleChange(regionID) {
-    this.props.changeRegionsChecked(regionID);
-  }
-  
   onClick = (clickKey) => {
     if (clickKey.keyPath[1] === 'regions')
     this.props.changeRegionsChecked(clickKey.key);
@@ -40,7 +36,7 @@ class ServicesListSelect extends Component {
     
     return (
       <SubMenu key="regions" title={<span><Icon type="environment" /><span>Regions</span></span>}>
-        { regionsList.map((arr) => <Menu.Item key={ arr[0] }><Checkbox onChange={ this.handleChange.bind( this, arr[0] ) } checked={ this.props.regionIfChecked(arr[0]) }>{ arr[1] }</Checkbox></Menu.Item>) }
+        { regionsList.map((arr) => <Menu.Item key={ arr[0] }><Checkbox checked={ this.props.regionIfChecked(arr[0]) }>{ arr[1] }</Checkbox></Menu.Item>) }
       </SubMenu>
     );
   }

@@ -23,7 +23,6 @@ class ServicesListTools extends Component {
   }
   
   downloadCSVFile() {
-    console.log(this);
     var str = "Services Offered,";
     for (var key in this.props.regionsChecked) {
       str += this.props.regionsChecked[key]+",";

@@ -68,9 +68,6 @@ class ServicesListBlock extends Component {
       updateRegionsChecked[regionID] = this.state.regionsList[regionID];
       this.setState({ regionsChecked: updateRegionsChecked });
     }
-    
-    // TODO: Change the shown graph.
-    console.log(this.state.regionsChecked);
   }
   
   render() {
