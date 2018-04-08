@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, Checkbox } from 'antd';
+import './ServicesListSelect.css';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -36,7 +37,7 @@ class ServicesListSelect extends Component {
     
     return (
       <SubMenu key="regions" title={<span><Icon type="environment" /><span>Regions</span></span>}>
-        { regionsList.map((arr) => <Menu.Item key={ arr[0] }><Checkbox checked={ this.props.regionIfChecked(arr[0]) }>{ arr[1] }</Checkbox></Menu.Item>) }
+        { regionsList.map((arr) => <Menu.Item key={ arr[0] }><Checkbox checked={ this.props.regionIfChecked(arr[0]) }></Checkbox><span className="menuItemSpan">{ arr[1] }</span></Menu.Item>) }
       </SubMenu>
     );
   }

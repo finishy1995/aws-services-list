@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Button, Row, Col } from 'antd';
+import { Layout, Menu, Button, Row, Col, Icon } from 'antd';
 import './App.css';
 
 const { Header, Content, Footer } = Layout;
@@ -22,13 +22,17 @@ class App extends Component {
             </Col>
             <Col span={5}>
               <Button type="primary" icon="login" style={{ float: 'right', marginTop: '16px' }}>Login</Button>
+              <a className="github-button" href="https://github.com/finishy1995/aws-services-list/" target="_blank" rel="noopener noreferrer">
+                <Icon type="github" style={{ fontSize: '18px', marginRight: '4px' }} />
+                <span className="github-text">Star</span>
+              </a>
             </Col>
           </Row>
         </Header>
-        
+
         <Content id="Content" style={{ padding: '0 50px' }}>
         </Content>
-        
+
         <Footer style={{ textAlign: 'center' }}>
           Designed and built with the customer obsession by <a href="https://github.com/finishy1995" target="_blank" rel="noopener noreferrer">@david</a>. Thanks for all contributors in this project.
         </Footer>
