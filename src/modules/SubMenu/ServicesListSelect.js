@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Icon, Checkbox, Popover } from 'antd';
+import { Layout, Menu, Icon, Checkbox, Popover, Button } from 'antd';
 import './ServicesListSelect.css';
 
 const { SubMenu } = Menu;
@@ -14,14 +14,25 @@ const tempContent = (
 class ServicesListSelect extends Component {
   rootSubmenuKeys = ['regions', 'services'];
   state = {
-    openKeys: ['regions'],
-    indeterminate: true,
-    checkAll: false
+    openKeys: ['regions']
   };
   
+  servicesGroupContent(type) {
+    return (
+      <Button type="primary" size="small" onClick={ this.changeServicesGroupChecked } value={ type }>{ this.props.servicesGroupChecked[type].checkAll ? 'Unselect' : 'Select' }</Button>
+    );
+  }
+  
+  changeServicesGroupChecked = (e) => {
+    this.props.changeServicesGroupChecked(e.target.value);
+  }
+  
   onClick = (clickKey) => {
-    if (clickKey.keyPath[1] === 'regions')
-    this.props.changeRegionsChecked(clickKey.key);
+    if (clickKey.keyPath[1] === 'regions') {
+      this.props.changeRegionsChecked(clickKey.key);
+    } else {
+      this.props.changeServicesChecked(clickKey.keyPath[1], clickKey.key);
+    }
   }
   
   onOpenChange = (openKeys) => {
@@ -63,21 +74,27 @@ class ServicesListSelect extends Component {
     return (
       <SubMenu key="services" title={<span><Icon type="cloud" /><span>Services</span></span>}>
         <Menu.Item key="services-all" >
-          <Checkbox indeterminate={this.state.indeterminate} onChange={this.onCheckAllChange} checked={this.state.checkAll}></Checkbox>
+          <Checkbox
+            indeterminate={ this.props.servicesGroupChecked.All.indeterminate }
+            checked={ this.props.servicesGroupChecked.All.checkAll }
+          />
           <span className="menuItemSpan">Select All</span>
         </Menu.Item>
         {servicesGroupParent.map((str) =>
           <SubMenu key={ str } title={
             <span>
-              <Checkbox />
-              <Popover placement="bottomLeft" content={ str } trigger="hover">
+              <Checkbox
+                indeterminate={ this.props.servicesGroupChecked[str].indeterminate }
+                checked={ this.props.servicesGroupChecked[str].checkAll }
+              />
+              <Popover placement="bottomLeft" content={ this.servicesGroupContent(str) } title={ str } trigger="hover">
                 <span className="menuItemSpan">{ str }</span>
               </Popover>
             </span>
           }>
             {this.props.servicesGroup[str].map((item) =>
               <Menu.Item key={ item }>
-                <Checkbox />
+                <Checkbox checked={ this.props.serviceIfChecked(item, str) } />
                 <Popover placement="bottomLeft" content={ tempContent } title={ item } trigger="hover">
                   <span className="menuItemSpan">{ item }</span>
                 </Popover>
