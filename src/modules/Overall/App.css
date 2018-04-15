@@ -9,8 +9,9 @@ a:link, a:visited, a:hover, a:active {
 
 .site-logo {
   width: 200px;
-  float: left;
-  margin-right: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
 }
 
 .github-button {
@@ -39,4 +40,70 @@ a:link, a:visited, a:hover, a:active {
 
 .github-button:hover, .github-button:visited {
   color: #333;
+}
+
+.ant-layout-header {
+	padding: 0;
+}
+
+@media screen and (max-width: 767.99px) {
+	.site-short-menu {
+		content: "";
+		display: block;
+		border-radius: 2px;
+		width: 22px;
+		height: 22px;
+		position: absolute;
+		right: 22px;
+		top: 22px;
+		cursor: pointer;
+		font-size: 24px;
+		z-index: 1;
+	}
+	
+	.site-pc {
+		display: none;
+	}
+	
+	.site-block {
+  	padding: 24px 0;
+  	background: #fff;
+  	margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .site-logo {
+  	float: left;
+  }
+  
+  .site-width {
+  	margin-left: auto;
+		margin-right: auto;
+		padding: 0 20px;
+		width: 100%;
+  }
+  
+  .site-short-menu {
+  	display: none;
+  }
+  
+  .site-mobile {
+  	display: none;
+  }
+  
+  .site-block {
+  	padding: 24px 0;
+  	background: #fff;
+  	margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 780px) {
+  .site-width {
+  	margin-left: auto;
+		margin-right: auto;
+		padding: 0 20px;
+		width: 90%;
+  }
 }

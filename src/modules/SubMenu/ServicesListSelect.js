@@ -65,6 +65,10 @@ class ServicesListSelect extends Component {
     );
   }
   
+  onTitleClick = (key) => {
+    console.log(key);
+  }
+  
   servicesSubMenu() {
     var servicesGroupParent = [];
     for (var key in this.props.servicesGroup) {
@@ -81,7 +85,7 @@ class ServicesListSelect extends Component {
           <span className="menuItemSpan">Select All</span>
         </Menu.Item>
         {servicesGroupParent.map((str) =>
-          <SubMenu key={ str } title={
+          <SubMenu key={ str } onTitleClick={ this.onTitleClick } title={
             <span>
               <Checkbox
                 indeterminate={ this.props.servicesGroupChecked[str].indeterminate }
