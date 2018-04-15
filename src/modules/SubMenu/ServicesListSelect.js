@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Icon, Checkbox } from 'antd';
+import { Layout, Menu, Icon, Checkbox, Popover, Button } from 'antd';
+import './ServicesListSelect.css';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
+const tempContent = (
+  <p>
+    Here will show service brief introduction and service AWS website link, for example <a href="https://aws.amazon.com/ec2/">https://aws.amazon.com/ec2/</a>.
+  </p>
+);
+
 class ServicesListSelect extends Component {
   rootSubmenuKeys = ['regions', 'services'];
   state = {
-    openKeys: ['regions'],
-    indeterminate: true,
-    checkAll: false
+    openKeys: ['regions']
   };
   
+  servicesGroupContent(type) {
+    return (
+      <Button type="primary" size="small" onClick={ this.changeServicesGroupChecked } value={ type }>{ this.props.servicesGroupChecked[type].checkAll ? 'Unselect' : 'Select' }</Button>
+    );
+  }
+  
+  changeServicesGroupChecked = (e) => {
+    this.props.changeServicesGroupChecked(e.target.value);
+  }
+  
   onClick = (clickKey) => {
-    if (clickKey.keyPath[1] === 'regions')
-    this.props.changeRegionsChecked(clickKey.key);
+    if (clickKey.keyPath[1] === 'regions') {
+      this.props.changeRegionsChecked(clickKey.key);
+    } else {
+      this.props.changeServicesChecked(clickKey.keyPath[1], clickKey.key);
+    }
   }
   
   onOpenChange = (openKeys) => {
@@ -36,7 +54,58 @@ class ServicesListSelect extends Component {
     
     return (
       <SubMenu key="regions" title={<span><Icon type="environment" /><span>Regions</span></span>}>
-        { regionsList.map((arr) => <Menu.Item key={ arr[0] }><Checkbox checked={ this.props.regionIfChecked(arr[0]) }>{ arr[1] }</Checkbox></Menu.Item>) }
+        {regionsList.map((arr) =>
+          <Menu.Item key={ arr[0] }>
+            <Checkbox checked={ this.props.regionIfChecked(arr[0]) }></Checkbox>
+            <Popover placement="bottomLeft" content={ "AWS Region ID: " + arr[0] } title={ arr[1] } trigger="hover">
+              <span className="menuItemSpan">{ arr[1] }</span>
+            </Popover></Menu.Item>
+        )}
+      </SubMenu>
+    );
+  }
+  
+  onTitleClick = (key) => {
+    console.log(key);
+  }
+  
+  servicesSubMenu() {
+    var servicesGroupParent = [];
+    for (var key in this.props.servicesGroup) {
+      servicesGroupParent.push(key);
+    }
+    
+    return (
+      <SubMenu key="services" title={<span><Icon type="cloud" /><span>Services</span></span>}>
+        <Menu.Item key="services-all" >
+          <Checkbox
+            indeterminate={ this.props.servicesGroupChecked.All.indeterminate }
+            checked={ this.props.servicesGroupChecked.All.checkAll }
+          />
+          <span className="menuItemSpan">Select All</span>
+        </Menu.Item>
+        {servicesGroupParent.map((str) =>
+          <SubMenu key={ str } onTitleClick={ this.onTitleClick } title={
+            <span>
+              <Checkbox
+                indeterminate={ this.props.servicesGroupChecked[str].indeterminate }
+                checked={ this.props.servicesGroupChecked[str].checkAll }
+              />
+              <Popover placement="bottomLeft" content={ this.servicesGroupContent(str) } title={ str } trigger="hover">
+                <span className="menuItemSpan">{ str }</span>
+              </Popover>
+            </span>
+          }>
+            {this.props.servicesGroup[str].map((item) =>
+              <Menu.Item key={ item }>
+                <Checkbox checked={ this.props.serviceIfChecked(item, str) } />
+                <Popover placement="bottomLeft" content={ tempContent } title={ item } trigger="hover">
+                  <span className="menuItemSpan">{ item }</span>
+                </Popover>
+              </Menu.Item>
+            )}
+          </SubMenu>
+        )}
       </SubMenu>
     );
   }
@@ -46,8 +115,7 @@ class ServicesListSelect extends Component {
       <Sider width={240} style={{ background: '#fff' }}>
         <Menu mode="inline" openKeys={this.state.openKeys} onOpenChange={this.onOpenChange} onClick={ this.onClick }>
           { this.regionsSubMenu() }
-          <SubMenu key="services" title={<span><Icon type="cloud" /><span>Services (*)</span></span>}>
-          </SubMenu>
+          { this.servicesSubMenu() }
         </Menu>
       </Sider>
     );
@@ -55,11 +123,3 @@ class ServicesListSelect extends Component {
 }
 
 export default ServicesListSelect;
-
-// <Menu.Item key="5">Option 5</Menu.Item>
-// <Menu.Item key="0"><Checkbox indeterminate={this.state.indeterminate} onChange={this.onCheckAllChange} checked={this.state.checkAll}>All</Checkbox></Menu.Item>
-//             <Menu.Item key="6">Option 6</Menu.Item>
-//             <SubMenu key="sub3" title="Submenu">
-//               <Menu.Item key="7">Option 7</Menu.Item>
-//               <Menu.Item key="8">Option 8</Menu.Item>
-//             </SubMenu>

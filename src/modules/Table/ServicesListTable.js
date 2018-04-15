@@ -7,20 +7,53 @@ const colorMapping = {
   'close': '#FE4C40'
 };
 
+function getServicesWidth() {
+  if (document.body.clientWidth < 480) {
+    return 160;
+  } else if (document.body.clientWidth < 768) {
+    return 200;
+  } else if (document.body.clientWidth < 1000) {
+    return 240;
+  } else if (document.body.clientWidth < 1600) {
+    return 300;
+  } else {
+    return 400;
+  }
+}
+
+function getRegionsWidth() {
+  if (document.body.clientWidth < 480) {
+    return 100;
+  } else if (document.body.clientWidth < 768) {
+    return 120;
+  } else if (document.body.clientWidth < 1000) {
+    return 140;
+  } else {
+    return 160;
+  }
+}
+
 class ServicesListTable extends Component {
   loading = true;
-  
-  handleServicesStatus() {
-    var tableServicesStatus = [];
-    
-    for (var i=0; i<this.props.servicesStatus.Count; i++) {
-	  if (!tableServicesStatus.hasOwnProperty(this.props.servicesStatus.Items[i].service.S))
-	    tableServicesStatus[this.props.servicesStatus.Items[i].service.S] = [];
+  servicesWidth = getServicesWidth();
+  regionsWidth = getRegionsWidth();
+  count = 0;
 
-		tableServicesStatus[this.props.servicesStatus.Items[i].service.S][this.props.servicesStatus.Items[i].region.S] = this.props.servicesStatus.Items[i].status.N;
+  pageSizeOptions() {
+    if (this.count > 40) {
+      return [
+        '10',
+        '20',
+        '40',
+        this.count.toString()
+      ];
+    } else {
+      return [
+        '10',
+        '20',
+        '40'
+      ];
     }
-    
-    return tableServicesStatus;
   }
 
   tableColumns() {
@@ -36,7 +69,7 @@ class ServicesListTable extends Component {
       title: 'Services Offered',
       dataIndex: 'services',
       key: 'services',
-      width: 400,
+      width: this.servicesWidth,
       filters: servicesFilters,
       onFilter: (value, record) => record.services.indexOf(value) === 0,
       render: text => <span className="serviceListTableItem">{text}</span>
@@ -47,7 +80,7 @@ class ServicesListTable extends Component {
         dataIndex: key,
         key: key,
         align: 'center',
-        width: 150,
+        width: this.regionsWidth,
         render: text => ( <Icon type={text} style={{ color: colorMapping[text], fontWeight: 900 }} /> )
       });
     }
@@ -58,44 +91,45 @@ class ServicesListTable extends Component {
   tableData() {
     var data = [];
     
-    if ((this.props.servicesStatus.Count > 0) && (this.props.servicesGroup !== {})) {
+    if ((this.props.servicesStatus.Count > 0) && (this.props.servicesChecked !== {})) {
       var count = 0;
-      var tableServicesStatus = this.handleServicesStatus();
       
       for (var key in this.props.servicesGroup) {
-        var groupItem = {
-          key: count,
-          services: key,
-          children: []
-        };
-        count++;
-        for (var regionKey in this.props.regionsChecked) {
-          groupItem[regionKey] = '';
-        }
-        
+        if (!(key in this.props.servicesChecked))
+          continue;
         for (var i=0; i<this.props.servicesGroup[key].length; i++) {
-          var serviceItem = {
-            key: count,
-            services: this.props.servicesGroup[key][i]
-          };
-          count++;
-          for (regionKey in this.props.regionsChecked) {
-            switch (tableServicesStatus[this.props.servicesGroup[key][i]][regionKey]) {
-              case '0':
-                serviceItem[regionKey] = 'close';
-                break;
-              case '1':
-                serviceItem[regionKey] = 'check';
-                break;
-              default:
-                serviceItem[regionKey] = '';
+          var flag = false;
+          for (var j=0; j<this.props.servicesChecked[key].length; j++) {
+            if (this.props.servicesChecked[key][j] === this.props.servicesGroup[key][i]) {
+              flag = true;
+              break;
             }
           }
-          groupItem.children.push(serviceItem);
+          
+          if (flag) {
+            var serviceItem = {
+              key: count,
+              services: this.props.servicesChecked[key][j]
+            };
+            count++;
+            for (var regionKey in this.props.regionsChecked) {
+              switch (this.props.servicesStatus.Items[this.props.servicesChecked[key][j]][regionKey]) {
+                case '0':
+                  serviceItem[regionKey] = 'close';
+                  break;
+                case '1':
+                  serviceItem[regionKey] = 'check';
+                  break;
+                default:
+                  serviceItem[regionKey] = '';
+              }
+            }
+            data.push(serviceItem);
+          }
         }
-        
-        data.push(groupItem);
       }
+      
+      this.count = count;
       this.loading = false;
     }
     
@@ -105,7 +139,13 @@ class ServicesListTable extends Component {
   render() {
     return (
       <div style={{ padding: '24px 24px 4px 24px' }}>
-        <Table columns={ this.tableColumns() } dataSource={ this.tableData() } pagination={{ pageSize: 10 }} scroll={{ y: 800, x: 900 }} loading={ this.loading }/>
+        <Table
+          columns={ this.tableColumns() }
+          dataSource={ this.tableData() }
+          pagination={{ pageSize: 20, showSizeChanger: true, pageSizeOptions: this.pageSizeOptions() }}
+          scroll={{ y: document.body.clientHeight - 100, x: this.servicesWidth + this.regionsWidth *  Object.getOwnPropertyNames(this.props.regionsChecked).length}}
+          loading={ this.loading }
+        />
       </div>
     );
   }

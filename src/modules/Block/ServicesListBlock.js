@@ -1,84 +1,114 @@
 import React, { Component } from 'react';
-import { Layout, notification } from 'antd';
-import ServicesListSelect from '../SubMenu/ServicesListSelect';
+import { Row, Col } from 'antd';
+import ServicesListMenu from '../Menu/ServicesListMenu';
 import ServicesListTools from '../Toolbar/ServicesListTools';
 import ServicesListTable from '../Table/ServicesListTable';
-import { loadData } from '../Tools/funcs';
-
-const openNotificationWithIcon = (type) => {
-  notification[type]({
-    message: 'Region Check Error',
-    description: 'You can not check more than 6 regions. Please cancel some unnecessary regions check and try again.',
-  });
-};
+import { deepCopy } from '../Tools/funcs';
 
 class ServicesListBlock extends Component {
+  regionsCheckedFlag = true;
+  servicesCheckedFlag = true;
   state = {
-    regionsList: {},
     regionsChecked: {},
-    servicesStatus: {
-      'Count': 0,
-      'time': 0
-    },
-    servicesGroup: {}
+    servicesChecked: {},
+    servicesGroupChecked: {
+      'All': {
+        indeterminate: false,
+        checkAll: true,
+        uncheckNum: 0,
+        checkNum: 0
+      }
+    }
   };
   
   constructor(props) {
     super(props);
     
-    loadData("regionData", this, function(data, caller) {
-      caller.setState({ regionsList: data });
-      
-      var updateRegionsChecked = caller.state.regionsChecked;
-      for (var key in updateRegionsChecked) {
-        updateRegionsChecked[key] = data[key];
-      }
-      caller.setState({ regionsChecked: updateRegionsChecked });
-    });
     var checkedStr = props.defaultRegions.split(",");
     for (var i=0; i<checkedStr.length; i++) {
       this.state.regionsChecked[checkedStr[i]] = '';
     }
     
-    loadData("servicesStatus", this, function(data, caller) {
-      caller.setState({ servicesStatus: data });
-    });
-    
-    loadData("servicesGroup", this, function(data, caller) {
-      caller.setState({ servicesGroup: data });
-    });
-    
     this.changeRegionsChecked = this.changeRegionsChecked.bind(this);
-    this.regionIfChecked = this.regionIfChecked.bind(this);
+    this.changeServicesChecked = this.changeServicesChecked.bind(this);
   }
   
-  regionIfChecked(regionID) {
-    return (regionID in this.state.regionsChecked) ? true : false;
-  }
-  
-  changeRegionsChecked(regionID) {
-    var updateRegionsChecked = this.state.regionsChecked;
-    
-    if (regionID in this.state.regionsChecked) {
-      delete updateRegionsChecked[regionID];
-      this.setState({ regionsChecked: updateRegionsChecked });
-    } else if (Object.getOwnPropertyNames(this.state.regionsChecked).length > 5) {
-      openNotificationWithIcon('error');
-    } else {
-      updateRegionsChecked[regionID] = this.state.regionsList[regionID];
-      this.setState({ regionsChecked: updateRegionsChecked });
+  setRegionsChecked() {
+    if ((Object.getOwnPropertyNames(this.props.regionsList).length !== 0) && (this.regionsCheckedFlag)) {
+      var updateRegionsChecked = this.state.regionsChecked;
+      for (var key in updateRegionsChecked) {
+        updateRegionsChecked[key] = this.props.regionsList[key];
+      }
+      
+      this.regionsCheckedFlag = false;
+      this.changeRegionsChecked(updateRegionsChecked);
     }
   }
   
+  setServicesChecked() {
+    if ((Object.getOwnPropertyNames(this.props.servicesGroup).length !== 0) && (this.servicesCheckedFlag)) {
+      var updateServicesGroupChecked = this.state.servicesGroupChecked;
+        
+      for (var key in this.props.servicesGroup) {
+        updateServicesGroupChecked[key] = {
+          indeterminate: false,
+          checkAll: true,
+          uncheckNum: 0,
+          checkNum: this.props.servicesGroup[key].length
+        };
+          
+        updateServicesGroupChecked.All.checkNum += this.props.servicesGroup[key].length;
+      }
+      
+      this.servicesCheckedFlag = false;
+      this.changeServicesChecked(deepCopy(this.props.servicesGroup), updateServicesGroupChecked);
+    }
+  }
+  
+  changeServicesChecked(updateServicesChecked, updateServicesGroupChecked) {
+    this.setState({ servicesChecked: updateServicesChecked, servicesGroupChecked: updateServicesGroupChecked });
+  }
+  
+  changeRegionsChecked(updateRegionsChecked) {
+    this.setState({ regionsChecked: updateRegionsChecked });
+  }
+  
   render() {
+    this.setRegionsChecked();
+    this.setServicesChecked();
+    
     return (
-      <Layout style={{ padding: '24px 0', background: '#fff', marginTop: '40px' }}>
-        <ServicesListSelect regionsList={ this.state.regionsList } changeRegionsChecked={ this.changeRegionsChecked } regionIfChecked={ this.regionIfChecked } />
-        <Layout style={{ background: '#fff' }}>
-          <ServicesListTools lastUpdated={ this.state.servicesStatus.time } regionsChecked={ this.state.regionsChecked } servicesStatus={ this.state.servicesStatus } />
-          <ServicesListTable regionsChecked={ this.state.regionsChecked } servicesStatus={ this.state.servicesStatus } servicesGroup={ this.state.servicesGroup } />
-        </Layout>
-      </Layout>
+      <div className="site-block">
+        <Row>
+          <Col span={24}>
+            <ServicesListTools
+              time={ this.props.servicesStatus.time }
+              regionsChecked={ this.state.regionsChecked }
+              servicesStatus={ this.props.servicesStatus }
+              servicesChecked={ this.state.servicesChecked }
+            />
+          </Col>
+          <Col xs={24} sm={10} md={8} lg={6} xl={5} xxl={4}>
+            <ServicesListMenu
+              regionsList={ this.props.regionsList }
+              regionsChecked={ this.state.regionsChecked }
+              changeRegionsChecked={ this.changeRegionsChecked }
+              servicesGroup={ this.props.servicesGroup }
+              servicesGroupChecked={ this.state.servicesGroupChecked }
+              servicesChecked={ this.state.servicesChecked }
+              changeServicesChecked={ this.changeServicesChecked }
+            />
+          </Col>
+          <Col xs={24} sm={14} md={16} lg={18} xl={19} xxl={20}>
+            <ServicesListTable
+              regionsChecked={ this.state.regionsChecked }
+              servicesStatus={ this.props.servicesStatus }
+              servicesChecked={ this.state.servicesChecked }
+              servicesGroup={ this.props.servicesGroup }
+            />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

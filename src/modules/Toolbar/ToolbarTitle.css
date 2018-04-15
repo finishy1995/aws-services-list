@@ -1,0 +1,29 @@
+.toolbarDiv {
+  padding: 4px 24px 24px 24px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.toolbarTitle {
+  display: inline;
+  color: #1890ff;
+  margin-right: 10px;
+}
+
+.toolbarPop {
+	color: #1890ff;
+	font-weight: 900;
+	font-size: 18px;
+}
+
+.toolbarDescription {
+  font-size: 12px;
+}
+
+.toolbarDescription p {
+  margin-bottom: 0;
+}
+
+.toolbarNotification {
+  font-weight: 900;
+  text-transform: uppercase;
+}
